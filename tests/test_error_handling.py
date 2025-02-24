@@ -35,8 +35,8 @@ def test_empty_password_field(browser):
     surname_field = browser.find_element(By.NAME, 'Фамилия')
     surname_field.send_keys("Иванов")
 
-    email_field = browser.find_element(By.NAME, 'email')
-    email_field.send_keys("ivan.ivanov@mail.ru")
+    address_field = browser.find_element(By.XPATH, '//*[@id="address"]')
+    address_field.send_keys("ivan.ivanov@mail.ru")
 
     password_field = browser.find_element(By.NAME, 'Пароль')
     password_field.send_keys("")
