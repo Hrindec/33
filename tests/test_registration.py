@@ -49,10 +49,14 @@ def test_successful_registration_with_email(browser):
 
 # Тест 2: Успешная регистрация с номером телефона
 def test_successful_registration_with_phone(browser):
+    # Открытие страницы регистрации
     browser.get("https://b2c.passport.rt.ru/")
+
+    # Клик на кнопку "Зарегистрироваться"
     register_button = browser.find_element(By.XPATH, '//*[text()="Зарегистрироваться"]')
     register_button.click()
 
+    # Заполнение полей формы
     name_field = browser.find_element(By.NAME, 'Имя')
     name_field.send_keys("Иван")
 
@@ -68,10 +72,14 @@ def test_successful_registration_with_phone(browser):
     confirm_password_field = browser.find_element(By.NAME, 'Подтверждение пароля')
     confirm_password_field.send_keys("ValidPassword123")
 
+    # Клик по кнопке "Зарегистрироваться"
     continue_button = browser.find_element(By.XPATH, '//button[text()="Зарегистрироваться"]')
     continue_button.click()
 
-    time.sleep(5)
+    # Ожидание, что страница загрузится и появится поле для ввода кода
+    time.sleep(3)  # Ждем 3 секунды, чтобы страница успела обновиться
+
+    # Проверка на наличие текста "Введите код" в исходном коде страницы
     assert "Введите код" in browser.page_source
 
 
@@ -103,6 +111,9 @@ def test_invalid_password(browser):
     register_button = browser.find_element(By.XPATH, '//*[text()="Зарегистрироваться"]')
     register_button.click()
 
+    address_field = browser.find_element(By.XPATH, '//*[@id="address"]')
+    address_field.send_keys("ivan.ivanov@mail.ru")
+
     password_field = browser.find_element(By.NAME, 'Пароль')
     password_field.send_keys("short")
 
@@ -121,6 +132,9 @@ def test_password_mismatch(browser):
     browser.get("https://b2c.passport.rt.ru/")
     register_button = browser.find_element(By.XPATH, '//*[text()="Зарегистрироваться"]')
     register_button.click()
+
+    address_field = browser.find_element(By.XPATH, '//*[@id="address"]')
+    address_field.send_keys("ivan.ivanov@mail.ru")
 
     password_field = browser.find_element(By.NAME, 'Пароль')
     password_field.send_keys("ValidPassword123")
