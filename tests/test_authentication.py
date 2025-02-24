@@ -83,7 +83,7 @@ def test_invalid_login_password(browser):
     assert "Неверный логин или пароль" in browser.page_source
 
 
-# Тест 4: Успешная регистрация с email и номером телефона одновременно
+# Тест 4: Успешная регистрация с номером телефона
 def test_successful_registration_with_email_and_phone(browser):
     browser.get("https://b2c.passport.rt.ru/")
     register_button = browser.find_element(By.XPATH, '//*[text()="Зарегистрироваться"]')
@@ -95,11 +95,8 @@ def test_successful_registration_with_email_and_phone(browser):
     surname_field = browser.find_element(By.NAME, 'Фамилия')
     surname_field.send_keys("Иванов")
 
-    email_field = browser.find_element(By.NAME, 'email')
-    email_field.send_keys("ivan.ivanov@mail.ru")
-
-    phone_field = browser.find_element(By.NAME, 'phone')
-    phone_field.send_keys("+79161234567")
+    address_field = browser.find_element(By.XPATH, '//*[@id="address"]')
+    address_field.send_keys("ivan.ivanov@mail.ru")
 
     password_field = browser.find_element(By.NAME, 'Пароль')
     password_field.send_keys("ValidPassword123")
@@ -126,8 +123,8 @@ def test_password_min_length(browser):
     surname_field = browser.find_element(By.NAME, 'Фамилия')
     surname_field.send_keys("Иванов")
 
-    email_field = browser.find_element(By.NAME, 'email')
-    email_field.send_keys("ivan.ivanov@mail.ru")
+    address_field = browser.find_element(By.XPATH, '//*[@id="address"]')
+    address_field.send_keys("ivan.ivanov@mail.ru")
 
     password_field = browser.find_element(By.NAME, 'Пароль')
     password_field.send_keys("short")
@@ -172,8 +169,8 @@ def test_password_reset_with_email(browser):
     time.sleep(2)
 
     # Ввод email для восстановления пароля
-    email_field = browser.find_element(By.NAME, 'email')
-    email_field.send_keys("ivan.ivanov@mail.ru")
+    address_field = browser.find_element(By.XPATH, '//*[@id="address"]')
+    address_field.send_keys("ivan.ivanov@mail.ru")
 
     submit_button = browser.find_element(By.XPATH, '//button[text()="Отправить"]')
     submit_button.click()
